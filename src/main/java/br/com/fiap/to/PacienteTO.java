@@ -1,11 +1,12 @@
 package br.com.fiap.to;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class PacienteTO {
 
-    private Long idPaciente;
+    private Long id;
 
     @NotBlank(message = "Nome é obrigatório")
     @Size(min = 3, max = 100)
@@ -15,31 +16,31 @@ public class PacienteTO {
     @Size(min = 11, max = 11)
     private String cpf;
 
-    @NotBlank(message = "Email é obrigatório")
-    @Size(min = 20, max = 80)
-    private String email;
+    @NotNull
+    private Integer idade;
 
-    @NotBlank(message = "Telefone é obrigatório")
-    @Size(min = 9, max = 11)
-    private String telefone;
+    @NotBlank
+    @Size(min = 8, max = 30)
+    private String senha;
+
 
     public PacienteTO() {
     }
 
-    public PacienteTO(Long idPaciente, String nome, String cpf, String email, String telefone) {
-        this.idPaciente = idPaciente;
+    public PacienteTO(Long id, String nome, String cpf, Integer idade, String senha) {
+        this.id = id;
         this.nome = nome;
         this.cpf = cpf;
-        this.email = email;
-        this.telefone = telefone;
+        this.idade = idade;
+        this.senha = senha;
     }
 
-    public Long getIdPaciente() {
-        return idPaciente;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdPaciente(Long idPaciente) {
-        this.idPaciente = idPaciente;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -58,30 +59,19 @@ public class PacienteTO {
         this.cpf = cpf;
     }
 
-    public String getEmail() {
-        return email;
+    public Integer getIdade() {
+        return idade;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setIdade(Integer idade) {
+        this.idade = idade;
     }
 
-    public String getTelefone() {
-        return telefone;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    @Override
-    public String toString() {
-        return "PacienteTO{" +
-                "idPaciente=" + idPaciente +
-                ", nome='" + nome + '\'' +
-                ", cpf='" + cpf + '\'' +
-                ", email='" + email + '\'' +
-                ", telefone='" + telefone + '\'' +
-                '}';
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }
