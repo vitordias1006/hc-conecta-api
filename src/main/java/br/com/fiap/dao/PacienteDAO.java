@@ -10,21 +10,35 @@ public class PacienteDAO {
 
     public PacienteTO savePatient(PacienteTO pacienteTO){
         String sql = "Insert into paciente (nome, cpf, idade, senha) values (?, ?, ?, ?)";
-        try(PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(sql)){
+        try(PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(sql, new String[]{"cd_paciente"})){
             ps.setString(1, pacienteTO.getNome());
             ps.setString(2, pacienteTO.getCpf());
             ps.setInt(3, pacienteTO.getIdade());
             ps.setString(4, pacienteTO.getSenha());
 
-            if(ps.executeUpdate()>0){
-                return pacienteTO;
-            } else {
+            int rows = ps.executeUpdate();
+            if (rows == 0) {
+                System.out.println("Erro ao inserir consulta!");
                 return null;
             }
+            long idPaciente;
+
+            try (ResultSet rsKeys = ps.getGeneratedKeys()) {
+                if (rsKeys.next()) {
+                    idPaciente = rsKeys.getInt(1);
+                    pacienteTO.setId(idPaciente);
+                } else {
+                    System.out.println("Não foi possível recuperar o ID da consulta.");
+                    return null;
+                }
+            }
+
         } catch (SQLException e){
             System.out.println("Erro ao inserir paciente " + e.getMessage());
+        } finally{
+            ConnectionFactory.closeConnection();
         }
-        return null;
+        return pacienteTO;
     }
 
     public PacienteTO findById(Long id){
