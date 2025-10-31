@@ -18,7 +18,7 @@ public class PacienteDAO {
 
             int rows = ps.executeUpdate();
             if (rows == 0) {
-                System.out.println("Erro ao inserir consulta!");
+                System.out.println("Erro ao inserir paciente!");
                 return null;
             }
             long idPaciente;
@@ -28,7 +28,7 @@ public class PacienteDAO {
                     idPaciente = rsKeys.getInt(1);
                     pacienteTO.setId(idPaciente);
                 } else {
-                    System.out.println("Não foi possível recuperar o ID da consulta.");
+                    System.out.println("Não foi possível recuperar o ID do paciente.");
                     return null;
                 }
             }
