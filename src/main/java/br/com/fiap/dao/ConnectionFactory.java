@@ -24,8 +24,8 @@ public class ConnectionFactory {
             }
             Class.forName("oracle.jdbc.driver.OracleDriver");
             String url = "jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL";
-            String user = "rm565422";
-            String password = "241006";
+            String user = "usuario";
+            String password = "senha";
             connection = DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {
             System.out.println("Erro de SQL: " + e.getMessage());
