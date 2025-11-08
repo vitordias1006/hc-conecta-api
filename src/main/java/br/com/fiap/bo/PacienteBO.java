@@ -30,4 +30,11 @@ public class PacienteBO {
 
         return pacienteDAO.deleteById(id);
     }
+
+    public PacienteTO findByCpfAndPassword(String cpf, String password) {
+        if(pacienteDAO == null){
+            throw new RuntimeException("Paciente não existente");
+        }
+        return pacienteDAO.findByCpfAndPassword(cpf, password);
+    }
 }

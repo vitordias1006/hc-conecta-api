@@ -103,4 +103,30 @@ public class PacienteDAO {
         }
         return false;
     }
+
+    public PacienteTO findByCpfAndPassword(String cpf, String password) {
+        PacienteTO paciente = null;
+        String sql = "SELECT * FROM paciente WHERE cpf = ? AND senha = ?";
+
+        try (PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(sql)) {
+
+            ps.setString(1, cpf);
+            ps.setString(2, password);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                paciente = new PacienteTO();
+                paciente.setId(rs.getLong("cd_paciente"));
+                paciente.setName(rs.getString("nome"));
+                paciente.setCpf(rs.getString("cpf"));
+                paciente.setPassword(rs.getString("password"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return paciente;
+    }
 }

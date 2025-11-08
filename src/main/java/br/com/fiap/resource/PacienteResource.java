@@ -70,4 +70,21 @@ public class PacienteResource {
         }
         return response.build();
     }
+
+    @GET
+    @Path("/login")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response login(@QueryParam("cpf") String cpf, @QueryParam("password") String password) {
+        PacienteTO paciente = pacienteBO.findByCpfAndPassword(cpf, password);
+        Response.ResponseBuilder response = null;
+
+        if (paciente != null) {
+            response = Response.ok();
+        } else {
+            response = Response.status(404);
+        }
+
+        response.entity(paciente);
+        return response.build();
+    }
 }
