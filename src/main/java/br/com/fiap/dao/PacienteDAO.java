@@ -120,7 +120,8 @@ public class PacienteDAO {
                 paciente.setId(rs.getLong("cd_paciente"));
                 paciente.setName(rs.getString("nome"));
                 paciente.setCpf(rs.getString("cpf"));
-                paciente.setPassword(rs.getString("password"));
+                paciente.setAge(rs.getInt("idade"));
+                paciente.setPassword(rs.getString("senha"));
             }
 
         } catch (Exception e) {
