@@ -11,10 +11,10 @@ public class PacienteDAO {
     public PacienteTO savePatient(PacienteTO pacienteTO){
         String sql = "Insert into paciente (nome, cpf, idade, senha) values (?, ?, ?, ?)";
         try(PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(sql, new String[]{"cd_paciente"})){
-            ps.setString(1, pacienteTO.getNome());
+            ps.setString(1, pacienteTO.getName());
             ps.setString(2, pacienteTO.getCpf());
-            ps.setInt(3, pacienteTO.getIdade());
-            ps.setString(4, pacienteTO.getSenha());
+            ps.setInt(3, pacienteTO.getAge());
+            ps.setString(4, pacienteTO.getPassword());
 
             int rows = ps.executeUpdate();
             if (rows == 0) {
@@ -51,10 +51,10 @@ public class PacienteDAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()){
                     pacienteTO.setId(rs.getLong("cd_paciente"));
-                    pacienteTO.setNome(rs.getString("nome"));
+                    pacienteTO.setName(rs.getString("nome"));
                     pacienteTO.setCpf(rs.getString("cpf"));
-                    pacienteTO.setIdade(rs.getInt("idade"));
-                    pacienteTO.setSenha(rs.getString("senha"));
+                    pacienteTO.setAge(rs.getInt("idade"));
+                    pacienteTO.setPassword(rs.getString("senha"));
             } else {
                 return null;
             }
@@ -70,9 +70,9 @@ public class PacienteDAO {
     public PacienteTO updatePatient(PacienteTO pacienteTO){
         String sql = "UPDATE paciente set nome=?, idade=?, senha=? where cd_paciente=?";
         try (PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(sql)){
-            ps.setString(1, pacienteTO.getNome());
-            ps.setInt(2, pacienteTO.getIdade());
-            ps.setString(3, pacienteTO.getSenha());
+            ps.setString(1, pacienteTO.getName());
+            ps.setInt(2, pacienteTO.getAge());
+            ps.setString(3, pacienteTO.getPassword());
             ps.setLong(4, pacienteTO.getId());
 
             if (ps.executeUpdate() > 0){
@@ -102,5 +102,32 @@ public class PacienteDAO {
             ConnectionFactory.closeConnection();
         }
         return false;
+    }
+
+    public PacienteTO findByCpfAndPassword(String cpf, String password) {
+        PacienteTO paciente = null;
+        String sql = "SELECT * FROM paciente WHERE cpf = ? AND senha = ?";
+
+        try (PreparedStatement ps = ConnectionFactory.getConnection().prepareStatement(sql)) {
+
+            ps.setString(1, cpf);
+            ps.setString(2, password);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                paciente = new PacienteTO();
+                paciente.setId(rs.getLong("cd_paciente"));
+                paciente.setName(rs.getString("nome"));
+                paciente.setCpf(rs.getString("cpf"));
+                paciente.setAge(rs.getInt("idade"));
+                paciente.setPassword(rs.getString("senha"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return paciente;
     }
 }

@@ -10,29 +10,29 @@ public class PacienteTO {
 
     @NotBlank(message = "Nome é obrigatório")
     @Size(min = 3, max = 100)
-    private String nome;
+    private String name;
 
     @NotBlank(message = "CPF é obrigatório")
     @Size(min = 11, max = 11)
     private String cpf;
 
     @NotNull
-    private Integer idade;
+    private Integer age;
 
     @NotBlank
     @Size(min = 8, max = 30)
-    private String senha;
+    private String password;
 
 
     public PacienteTO() {
     }
 
-    public PacienteTO(Long id, String nome, String cpf, Integer idade, String senha) {
+    public PacienteTO(Long id, String name, String cpf, Integer age, String senha) {
         this.id = id;
-        this.nome = nome;
+        this.name = name;
         this.cpf = cpf;
-        this.idade = idade;
-        this.senha = senha;
+        this.age = age;
+        this.password = senha;
     }
 
     public Long getId() {
@@ -43,12 +43,12 @@ public class PacienteTO {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCpf() {
@@ -59,19 +59,19 @@ public class PacienteTO {
         this.cpf = cpf;
     }
 
-    public Integer getIdade() {
-        return idade;
+    public Integer getAge() {
+        return age;
     }
 
-    public void setIdade(Integer idade) {
-        this.idade = idade;
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getPassword() {
+        return password;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
